@@ -11,7 +11,7 @@ function Home(){
             textcolor="white"
             title="BadBank landing page"
             subtitle="Welcome to your BadBank"
-            text="You should not use this bank"
+            text="We strongly recommend not using this bank"
             body={<Card.Img variant="top" className='img-fluid' src="./src/assets/bank_logo.png" alt='Bank Logo image'/>}
         />
     )

@@ -12,7 +12,7 @@ import AllData from './alldata.jsx'
 import { UserContext } from './context'
 
 function App() {
-  const ctx = {users:[{name:'peter', email:'pet@mit.edu', password:'secret', balance:100}]};
+  const ctx = {users:[{name:'mark', email:'mark@mit.edu', password:'dontknow', balance:100}]};
   return (
     <>
       <HashRouter>
@@ -24,7 +24,6 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/deposit" element={<Deposit/>}/>
             <Route path="/withdraw" element={<Withdraw/>}/>
-            <Route path="/balance" element={<Balance/>}/>
             <Route path="/alldata" element={<AllData/>}/>
           </Routes>
           </UserContext.Provider>

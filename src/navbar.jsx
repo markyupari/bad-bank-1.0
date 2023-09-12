@@ -9,13 +9,12 @@ function NavigationBar(){
                 <Container>
                     <Navbar.Brand href="#">Bad Bank</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                    <Nav>
                         <Nav.Link href="#/CreateAccount/">Create account</Nav.Link>
                         <Nav.Link href="#/login/">Login</Nav.Link>
                         <Nav.Link href="#/deposit/">Deposit</Nav.Link>
                         <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
-                        <Nav.Link href="#/balance/">Balance</Nav.Link>
                         <Nav.Link href="#/alldata/">AllData</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
