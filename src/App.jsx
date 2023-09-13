@@ -7,7 +7,6 @@ import CreateAccount from './createaccount.jsx'
 import Login from './login.jsx'
 import Deposit from './deposit.jsx'
 import Withdraw from './withdraw.jsx'
-import Balance from './balance.jsx'
 import AllData from './alldata.jsx'
 import { UserContext } from './context'
 
