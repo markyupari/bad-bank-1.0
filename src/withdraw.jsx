@@ -3,6 +3,9 @@ import { useContext, useState } from "react";
 import CardTemplate from "./cardtemplate";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/esm/Container";
 
 //Sweet alert import
 import Swal from "sweetalert2";
@@ -79,52 +82,58 @@ function Withdraw() {
   }
 
   return (
-    <CardTemplate
-      color="secondary"
-      textcolor="white"
-      title="Withdraw"
-      subtitle="Nothing suspicious here"
-      text="Type in the amount you want to withdraw"
-      body={
-        <>
-          <Form.Group className="mb-3">
-            <Form.Label>Your balance:</Form.Label>
-            <Form.Control
-              type="number"
-              id="balance"
-              placeholder={`BTC ${balance}`}
-              disabled
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Amount to withdraw:</Form.Label>
-            <Form.Control
-              type="input"
-              id="withdraw"
-              placeholder="BTC"
-              value={withdraw}
-              onChange={(e) => setWithdraw(e.currentTarget.value)}
-            />
-            {statusWithdraw === "Error: NaN" ? (
-              <Form.Text muted>
-                Letters and special characters not allowed
-              </Form.Text>
-            ) : null}
-            {statusWithdraw === "Error: negative" ? (
-              <Form.Text muted>Only positive numbers allowed</Form.Text>
-            ) : null}
-          </Form.Group>
-          <Button
-            type="submit"
-            variant="light"
-            onClick={handleWithdraw}
-            disabled={!withdraw}
-          >
-            Withdraw
-          </Button>
-        </>
-      }
-    />
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <CardTemplate
+            color="secondary"
+            textcolor="white"
+            title="Withdraw"
+            subtitle="Nothing suspicious here"
+            text="Type in the amount you want to withdraw"
+            body={
+              <>
+                <Form.Group className="mb-3">
+                  <Form.Label>Your balance:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    id="balance"
+                    placeholder={`BTC ${balance}`}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Amount to withdraw:</Form.Label>
+                  <Form.Control
+                    type="input"
+                    id="withdraw"
+                    placeholder="BTC"
+                    value={withdraw}
+                    onChange={(e) => setWithdraw(e.currentTarget.value)}
+                  />
+                  {statusWithdraw === "Error: NaN" ? (
+                    <Form.Text muted>
+                      Letters and special characters not allowed
+                    </Form.Text>
+                  ) : null}
+                  {statusWithdraw === "Error: negative" ? (
+                    <Form.Text muted>Only positive numbers allowed</Form.Text>
+                  ) : null}
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="light"
+                  onClick={handleWithdraw}
+                  disabled={!withdraw}
+                >
+                  Withdraw
+                </Button>
+              </>
+            }
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default Withdraw;

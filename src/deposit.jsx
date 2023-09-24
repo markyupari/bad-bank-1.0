@@ -3,6 +3,9 @@ import { useContext, useState } from "react";
 import CardTemplate from "./cardtemplate";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/esm/Container";
 
 //Sweet alert import
 import Swal from "sweetalert2";
@@ -60,52 +63,58 @@ function Deposit() {
   }
 
   return (
-    <CardTemplate
-      color="secondary"
-      textcolor="white"
-      title="Deposit"
-      subtitle="Sure, what could possibly go wrong?"
-      text="Type in the amount you want to deposit"
-      body={
-        <>
-          <Form.Group className="mb-3">
-            <Form.Label>Your balance:</Form.Label>
-            <Form.Control
-              type="number"
-              id="balance"
-              placeholder={`BTC ${balance}`}
-              disabled
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Amount to deposit:</Form.Label>
-            <Form.Control
-              type="input"
-              id="deposit"
-              placeholder="BTC"
-              value={deposit}
-              onChange={(e) => setDeposit(e.currentTarget.value)}
-            />
-            {statusDeposit === "Error: NaN" ? (
-              <Form.Text muted>
-                Letters and special characters not allowed
-              </Form.Text>
-            ) : null}
-            {statusDeposit === "Error: negative" ? (
-              <Form.Text muted>Only positive numbers allowed</Form.Text>
-            ) : null}
-          </Form.Group>
-          <Button
-            type="submit"
-            variant="light"
-            onClick={handleDeposit}
-            disabled={!deposit}
-          >
-            Deposit
-          </Button>
-        </>
-      }
-    />
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <CardTemplate
+            color="secondary"
+            textcolor="white"
+            title="Deposit"
+            subtitle="Sure, what could possibly go wrong?"
+            text="Type in the amount you want to deposit"
+            body={
+              <>
+                <Form.Group className="mb-3">
+                  <Form.Label>Your balance:</Form.Label>
+                  <Form.Control
+                    type="number"
+                    id="balance"
+                    placeholder={`BTC ${balance}`}
+                    disabled
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>Amount to deposit:</Form.Label>
+                  <Form.Control
+                    type="input"
+                    id="deposit"
+                    placeholder="BTC"
+                    value={deposit}
+                    onChange={(e) => setDeposit(e.currentTarget.value)}
+                  />
+                  {statusDeposit === "Error: NaN" ? (
+                    <Form.Text muted>
+                      Letters and special characters not allowed
+                    </Form.Text>
+                  ) : null}
+                  {statusDeposit === "Error: negative" ? (
+                    <Form.Text muted>Only positive numbers allowed</Form.Text>
+                  ) : null}
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="light"
+                  onClick={handleDeposit}
+                  disabled={!deposit}
+                >
+                  Deposit
+                </Button>
+              </>
+            }
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default Deposit;

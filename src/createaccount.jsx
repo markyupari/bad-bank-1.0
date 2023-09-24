@@ -3,6 +3,9 @@ import CardTemplate from "./cardtemplate";
 import { UserContext } from "./context";
 import { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/esm/Container";
 
 //Sweet alert import
 import Swal from "sweetalert2";
@@ -66,76 +69,82 @@ function CreateAccount() {
   }
 
   return (
-    <CardTemplate
-      color="secondary"
-      textcolor="white"
-      title="Create account"
-      subtitle="Your first step to a terrible mistake"
-      text="You should not create an account in this bank"
-      status={status}
-      body={
-        show ? (
-          <>
-            <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="input"
-                id="name"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.currentTarget.value)}
-              />
-              {status === "Error: name" ? (
-                <Form.Text muted>Name field can't be empty</Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                type="email"
-                id="email"
-                placeholder="Enter a valid email"
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-              />
-              {status === "Error: email" ? (
-                <Form.Text muted>Email field can't be empty</Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                id="password"
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-              />
-              {status === "Error: password" ? (
-                <Form.Text muted>
-                  Password must be at least 8 characters long
-                </Form.Text>
-              ) : null}
-            </Form.Group>
-            <Button
-              type="submit"
-              variant="light"
-              onClick={handleCreate}
-              disabled={name === "" && email === "" && password === ""}
-            >
-              Create account
-            </Button>
-          </>
-        ) : (
-          <>
-            <h5>Success</h5>
-            <Button type="submit" variant="light" onClick={clearForm}>
-              Create another account
-            </Button>
-          </>
-        )
-      }
-    />
+    <Container>
+      <Row className="justify-content-md-center">
+        <Col md="auto">
+          <CardTemplate
+            color="secondary"
+            textcolor="white"
+            title="Create account"
+            subtitle="Your first step to a terrible mistake"
+            text="You should not create an account in this bank"
+            status={status}
+            body={
+              show ? (
+                <>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Name:</Form.Label>
+                    <Form.Control
+                      type="input"
+                      id="name"
+                      placeholder="Enter your name"
+                      value={name}
+                      onChange={(e) => setName(e.currentTarget.value)}
+                    />
+                    {status === "Error: name" ? (
+                      <Form.Text muted>Name field can't be empty</Form.Text>
+                    ) : null}
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email:</Form.Label>
+                    <Form.Control
+                      type="email"
+                      id="email"
+                      placeholder="Enter a valid email"
+                      value={email}
+                      onChange={(e) => setEmail(e.currentTarget.value)}
+                    />
+                    {status === "Error: email" ? (
+                      <Form.Text muted>Email field can't be empty</Form.Text>
+                    ) : null}
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Password:</Form.Label>
+                    <Form.Control
+                      type="password"
+                      id="password"
+                      placeholder="Enter password"
+                      value={password}
+                      onChange={(e) => setPassword(e.currentTarget.value)}
+                    />
+                    {status === "Error: password" ? (
+                      <Form.Text muted>
+                        Password must be at least 8 characters long
+                      </Form.Text>
+                    ) : null}
+                  </Form.Group>
+                  <Button
+                    type="submit"
+                    variant="light"
+                    onClick={handleCreate}
+                    disabled={name === "" && email === "" && password === ""}
+                  >
+                    Create account
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <h5>Success</h5>
+                  <Button type="submit" variant="light" onClick={clearForm}>
+                    Create another account
+                  </Button>
+                </>
+              )
+            }
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 export default CreateAccount;
