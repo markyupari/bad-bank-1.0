@@ -22,7 +22,7 @@ function Home() {
               <Card.Img
                 variant="top"
                 className="img-fluid"
-                src="/public/logo.png"
+                src="/logo.png"
                 alt="Bank Logo image"
               />
             }
