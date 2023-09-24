@@ -5,6 +5,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/esm/Container";
+import img from "./assets/images/logo.png";
 
 function Home() {
   const user = useContext(UserContext);
@@ -22,7 +23,7 @@ function Home() {
               <Card.Img
                 variant="top"
                 className="img-fluid"
-                src="/logo.png"
+                src={img}
                 alt="Bank Logo image"
               />
             }
