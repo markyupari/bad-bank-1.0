@@ -1,7 +1,8 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-//import './navbar.css'
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
 function NavigationBar() {
   return (
@@ -15,24 +16,71 @@ function NavigationBar() {
             className="justify-content-end"
           >
             <Nav>
-              <Nav.Link className="custom-nav-link" href="#/CreateAccount/">
-                Create account
-              </Nav.Link>
-              <Nav.Link href="#/login/">Login</Nav.Link>
-              <Nav.Link href="#/deposit/">Deposit</Nav.Link>
-              <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
-              <Nav.Link href="#/alldata/">AllData</Nav.Link>
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="home-tooltip">"Go home (seriously)"</Tooltip>
+                }
+              >
+                <Nav.Link href="#/">Home</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="createAccount-tooltip">
+                    "Already a bad idea"
+                  </Tooltip>
+                }
+              >
+                <Nav.Link href="#/CreateAccount/">Create account</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="login-tooltip">
+                    "You don't listen, do you?"
+                  </Tooltip>
+                }
+              >
+                <Nav.Link href="#/login/">Login</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="deposit-tooltip">
+                    "A bad idea after another"
+                  </Tooltip>
+                }
+              >
+                <Nav.Link href="#/deposit/">Deposit</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="withdraw-tooltip">
+                    "Why are you still here?"
+                  </Tooltip>
+                }
+              >
+                <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
+              </OverlayTrigger>
+
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip id="alldata-tooltip">"Want to take a peek?"</Tooltip>
+                }
+              >
+                <Nav.Link href="#/alldata/">AllData</Nav.Link>
+              </OverlayTrigger>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <a href="#">BadBank</a>,
-            <a href="#/CreateAccount/">Create account</a>,
-            <a href="#/login/">Login</a>,
-            <a href="#/deposit/">Deposit</a>,
-            <a href="#/withdraw/">Withdraw</a>,
-            <a href="#/balance/">Balance</a>,
-            <a href="#/alldata/">AllData</a> */}
     </>
   );
 }
