@@ -1,4 +1,4 @@
-<h1><img src="./favicon2.ico" alt="personal logo" width=25> Ark Industries</h1>
+<h1><img src="./public/favicon2.ico" alt="personal logo" width=25> Ark Industries</h1>
 
 > Version 1
 
