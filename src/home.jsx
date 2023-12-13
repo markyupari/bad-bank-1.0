@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/esm/Container";
-import img from "./assets/images/logo.png";
+import img from "../public/logo.png";
 
 function Home() {
   const user = useContext(UserContext);

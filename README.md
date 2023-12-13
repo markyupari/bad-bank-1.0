@@ -4,20 +4,7 @@
 
 Ark Industries will be a reference for automation in the history of technology.
 
-<h1>Bad Bank Application</h1>
-
-## Description
-
-This repository of a Bad Bank application can be used for beginners in the web development World to create their first fullstack.  
-If you are learning React with Routes you can use this repository as an example.  
-
-## How to run
-
-To use it locally, fork it to your repository and then download it to your computer. Use command npm install to download all the modules requiered by the app and command npm run dev to start a local server (http://localhost:5173/) to display the page.  
-You can see it work here: <a href="https://markyupari.github.io/bad-bank-1.0/" target="_blank">https://markyupari.github.io/bad-bank-1.0/</a>
-For more information on how to deploy a Vite React project like this visit <a href="https://vitejs.dev/guide/#scaffolding-your-first-vite-project" target="_blank">vitejs.dev</a>
-
-## Features
+## Bad Bank Application
 
 This page is an example of how to make a Banking website with some basic functionalities:
 
@@ -29,24 +16,14 @@ This page is an example of how to make a Banking website with some basic functio
   <li><strong>All data:</strong> The information of all the user's name, email, password, and balance is shown in a table with headers</li>
 </ul>
 React hooks like useState and useContext are used to track variables.  
-React-bootstrap is used to style the components.  
+React-bootstrap is used to style the components.
 
-## Screenshots
+## How to run
 
-<ul>
-  <li><img src="./public/1.png" alt="landing page" width=auto></li>
-  <li><img src="./public/2.png" alt="create account" width=auto></li>
-  <li><img src="./public/3.png" alt="account success" width=auto></li>
-  <li><img src="./public/4.png" alt="deposit page" width=auto></li>
-  <li><img src="./public/5.png" alt="deposit success" width=auto></li>
-  <li><img src="./public/6.png" alt="withdraw page" width=auto></li>
-  <li><img src="./public/7.png" alt="withdraw error" width=auto></li>
-</ul>
-
-## Technology
-
-<strong>Front-End:</strong> React with Vite.  
-<strong>Back-End:</strong> Express for the server and MondoDB in Docker for the database.  
+This file can be used for beginners in the web development World to create their first web page in GitHub.  
+To use it locally, fork it to your repository and then download it to your computer. Use command npm install to download all the modules requiered by the app and command npm run dev to start a local server (http://localhost:5173/) to display the page.  
+You can see it work here: <a href="https://markyupari.github.io/bad-bank-1.0/" target="_blank">https://markyupari.github.io/bad-bank-1.0/</a>
+For more information on how to deploy a Vite React project like this visit <a href="https://vitejs.dev/guide/#scaffolding-your-first-vite-project" target="_blank">vitejs.dev</a>
 
 ## Support
 

@@ -30,9 +30,19 @@ function CreateAccount() {
       color: "#cbb26a",
     });
   };
+  const showSwalError = (email, errorMessage) => {
+    MySwal.fire({
+      icon: "error",
+      title: `Error trying to create user with email: ${email}`,
+      text: `Error: ${errorMessage}.`,
+      background: "#3a415c",
+      color: "#cbb26a",
+    });
+  };
   //=============================================//
 
   function validate(field, label) {
+    // validate fields not empty
     if (!field) {
       setStatus("Error: " + label);
       setTimeout(() => {
@@ -41,7 +51,17 @@ function CreateAccount() {
       return false;
     }
     // validate password length
-    if (field.length < 8 && label === "password") {
+    if (field.length < 4 && label === "password") {
+      setStatus("Error: " + label);
+      setTimeout(() => {
+        setStatus("");
+      }, 3000);
+      return false;
+    }
+    // validate email format
+    const validRegex =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    if (label === "email" && !validRegex.test(field)) {
       setStatus("Error: " + label);
       setTimeout(() => {
         setStatus("");
@@ -56,9 +76,21 @@ function CreateAccount() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    user.users.push({ name, email, password, balance: 100 });
-    setShow(false);
-    showSwalSuccess();
+
+    const url = `/api/account/create/${name}/${email}/${password}`;
+    const apiCreateAccount = async () => {
+      var res = await fetch(url);
+      var data = await res.json();
+      console.log(data);
+      if (data.error) {
+        showSwalError(email, data.error);
+      } else {
+        setShow(false);
+        showSwalSuccess();
+        //user.users.push({ name, email, password, balance: 0 });
+      }
+    };
+    apiCreateAccount();
   }
 
   function clearForm() {
@@ -105,7 +137,7 @@ function CreateAccount() {
                       onChange={(e) => setEmail(e.currentTarget.value)}
                     />
                     {status === "Error: email" ? (
-                      <Form.Text muted>Email field can't be empty</Form.Text>
+                      <Form.Text muted>Enter a valid email</Form.Text>
                     ) : null}
                   </Form.Group>
                   <Form.Group className="mb-3">

@@ -1,11 +1,28 @@
-import { UserContext } from "./context";
-import { useContext } from "react";
+// import { UserContext } from "./context";
+// import { useContext, useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 
-function Data() {}
-
 function AllData() {
-  const user = useContext(UserContext);
+  //const user = useContext(UserContext);
+
+  const [data, setData] = useState([]);
+  const url = "/api/account/all";
+  useEffect(() => {
+    async function fetchAllData() {
+      setData([]);
+      var res = await fetch(url);
+      var data = await res.json();
+      if (!ignore) {
+        console.log(data);
+        setData(data);
+      }
+    }
+    let ignore = false;
+    fetchAllData();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   return (
     <Table striped bordered hover variant="dark" className="mt-2">
@@ -19,7 +36,7 @@ function AllData() {
         </tr>
       </thead>
       <tbody>
-        {user.users.map((item, index) => (
+        {data.map((item, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
             <td>{item.name}</td>
