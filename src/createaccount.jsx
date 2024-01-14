@@ -17,7 +17,7 @@ function CreateAccount() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const user = useContext(UserContext);
+  //const user = useContext(UserContext);
 
   //======Sweet alert setup======================//
   const MySwal = withReactContent(Swal);

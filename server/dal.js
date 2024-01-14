@@ -25,7 +25,7 @@ const firebaseConfig = {
 };
 
 const {initializeApp} = require('firebase/app');
-const {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} = require('firebase/auth');
+const {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged} = require('firebase/auth');
 
 // initialize firebase
 initializeApp(firebaseConfig);
@@ -56,7 +56,7 @@ function create(name, email, password){
             var collection = db.collection('users');
             var doc = {name, email, password, balance: 0};
             collection.insertOne(doc, {w:1}, function(err, result){
-                err ? reject(err) : resolve(doc);
+                err ? reject(err) : resolve(result);
                 /*ROADMAP: On error-> delete user created in Firebase*/
             });
         })
@@ -79,6 +79,17 @@ function create(name, email, password){
     })
 }
 
+// create user account from Google to MongoDB
+function createGoogleMongo(name, email, password){
+    return new Promise((resolve, reject)=>{
+        const collection = db.collection('users'); //use collection 'users'
+        const doc = {name, email, password, balance: 0};
+        collection.insertOne(doc, {w:1} , function(err,result){
+            err ? reject(err) : resolve(result);
+        });
+    })
+}
+
 // find user account
 function find(email){
     return new Promise((resolve, reject) => {    
@@ -98,8 +109,7 @@ function login(email, password){
         signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in 
-            const user = userCredential.user;
-            resolve(user);
+            resolve(userCredential);
           })
           .catch((error) => {
             const errorCode = error.code;
@@ -107,8 +117,50 @@ function login(email, password){
             reject(error);
           });
     })
-
 }
+
+// login with Google (NOT USED)
+function googlelogin() {
+    return new Promise((resolve, reject) => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                resolve(user);
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                reject(error);
+            });
+    })
+}
+
+// logout
+function logout(){
+    return new Promise((resolve, reject) => {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                // Sign-out successful.
+                resolve();
+            })
+            .catch((error) => {
+                // An error happened.
+                console.log(error);
+                reject(error);
+            });
+    })
+}
+
 
 // find user account
 function findOne(email){
@@ -151,5 +203,22 @@ function all(){
     })
 }
 
+// current user (NOT USED)
+function currentUser(){
+    return new Promise((resolve, reject) => {    
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/auth.user
+            const data = {email: user.email};
+            resolve(data);
+          } else {
+            // User is signed out
+            resolve({email: ""});
+          }
+        });
+    })
+}
 
-module.exports = {create, findOne, find, update, all, login};
+module.exports = {create, findOne, find, update, all, login, googlelogin, logout, currentUser, createGoogleMongo};

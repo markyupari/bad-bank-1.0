@@ -4,8 +4,48 @@ import Navbar from "react-bootstrap/Navbar";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import "./navbar.css";
+import UserContext from "./context";
+import { useContext, useEffect, useState } from "react";
 
 function NavigationBar() {
+  const { currentUser, updateCurrentUser } = useContext(UserContext);
+  // const [show, setShow] = useState(false);
+  // const [email, setEmail] = useState("");
+
+  // const url = "/api/account/currentuser";
+  // useEffect(() => {
+  //   console.log("Navbar:", user.currentUser);
+  //   if (user.currentUser.length > 0) {
+  //     setEmail(user.currentUser[0].email);
+  //     setShow(true);
+  //   } else {
+  //     setEmail("");
+  //     setShow(false);
+  //   }
+  // }, [user.currentUser.length]);
+
+  // useEffect(() => {
+  //   async function fetchCurrentUser() {
+  //     setEmail("");
+  //     var res = await fetch(url);
+  //     var data = await res.json();
+  //     if (!ignore) {
+  //       console.log("Navbar", data);
+  //       setEmail(data.email);
+  //       if (data.email === "") {
+  //         setShow(false);
+  //       } else {
+  //         setShow(true);
+  //       }
+  //     }
+  //   }
+  //   let ignore = false;
+  //   fetchCurrentUser();
+  //   return () => {
+  //     ignore = true;
+  //   };
+  // }, [user]);
+
   return (
     <>
       <Navbar expand="lg" bg="dark" data-bs-theme="dark">
@@ -45,7 +85,7 @@ function NavigationBar() {
                   </Tooltip>
                 }
               >
-                <Nav.Link href="#/login/">Login</Nav.Link>
+                <Nav.Link href="#/login/">User</Nav.Link>
               </OverlayTrigger>
 
               <OverlayTrigger
@@ -56,7 +96,14 @@ function NavigationBar() {
                   </Tooltip>
                 }
               >
-                <Nav.Link href="#/deposit/">Deposit</Nav.Link>
+                <Nav.Link
+                  href="#/deposit/"
+                  style={{
+                    display: currentUser.email === "" ? "none" : "inline",
+                  }}
+                >
+                  Deposit
+                </Nav.Link>
               </OverlayTrigger>
 
               <OverlayTrigger
@@ -67,7 +114,14 @@ function NavigationBar() {
                   </Tooltip>
                 }
               >
-                <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
+                <Nav.Link
+                  href="#/withdraw/"
+                  style={{
+                    display: currentUser.email === "" ? "none" : "inline",
+                  }}
+                >
+                  Withdraw
+                </Nav.Link>
               </OverlayTrigger>
 
               <OverlayTrigger
@@ -76,8 +130,24 @@ function NavigationBar() {
                   <Tooltip id="alldata-tooltip">"Want to take a peek?"</Tooltip>
                 }
               >
-                <Nav.Link href="#/alldata/">AllData</Nav.Link>
+                <Nav.Link
+                  href="#/alldata/"
+                  style={{
+                    display:
+                      currentUser.email === "mark@mit.edu" ? "inline" : "none",
+                  }}
+                >
+                  AllData
+                </Nav.Link>
               </OverlayTrigger>
+              <Nav.Link
+                href="#/login/"
+                style={{
+                  display: currentUser.email === "" ? "none" : "inline",
+                }}
+              >
+                {currentUser.email}
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

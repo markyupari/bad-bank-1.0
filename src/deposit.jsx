@@ -1,5 +1,5 @@
-import { UserContext } from "./context";
-import { useContext, useState } from "react";
+import UserContext from "./context";
+import { useContext, useEffect, useState } from "react";
 import CardTemplate from "./cardtemplate";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -12,10 +12,11 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 function Deposit() {
-  const user = useContext(UserContext);
-  const [balance, setBalance] = useState(
-    user.users[user.users.length - 1].balance
-  );
+  const { currentUser, updateCurrentUser } = useContext(UserContext);
+  // const [balance, setBalance] = useState(
+  //   user.users[user.users.length - 1].balance
+  // );
+  const [balance, setBalance] = useState(0);
   const [deposit, setDeposit] = useState(0);
   const [statusDeposit, setStatusDeposit] = useState("");
 
@@ -50,16 +51,54 @@ function Deposit() {
     return true;
   }
 
+  /* ---useEffect to get user balance--- */
+  const url = "/api/account/all";
+  useEffect(() => {
+    async function fetchUserBalance() {
+      //setBalance(0);
+      var res = await fetch(url);
+      var data = await res.json();
+      console.log("Deposit data:", data);
+      console.log("Deposit data.UserEmail[0]:", data[0].email);
+      console.log("Deposit currentUser", currentUser);
+      const currentUserData = data.filter(
+        (user) => user.email == currentUser.email
+      );
+      console.log("Deposit currentUser balance", currentUserData[0].balance);
+      if (!ignore) {
+        console.log("ignore: false");
+        setBalance(currentUserData[0].balance);
+      }
+    }
+    let ignore = false;
+    fetchUserBalance();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  /* ----------------------------------- */
+
   function handleDeposit() {
     console.log(deposit);
     if (!validate(Number(deposit))) return;
 
     let newBalance = balance + Number(deposit);
     setBalance(newBalance);
-    user.users[user.users.length - 1].balance = newBalance; //to be replaced when login is ON
-    console.log(`deposit: ${deposit}, balance: ${balance}`);
-    showSwalSuccess(Number(deposit));
-    setDeposit(0);
+    //user.users[user.users.length - 1].balance = newBalance; //to be replaced when login is ON
+
+    // write new balance to database
+    const url = `/account/update/${currentUser.email}/${deposit}`;
+    const apiUpdateBalance = async () => {
+      var res = await fetch(url);
+      var data = await res.json();
+      console.log("Deposit fetch data", data);
+      console.log(`deposit: ${deposit}, balance: ${balance}`);
+      showSwalSuccess(Number(deposit));
+      setDeposit(0);
+      //user.users.push({ name, email, password, balance: 0 });
+    };
+    apiUpdateBalance();
   }
 
   return (

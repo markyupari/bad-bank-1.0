@@ -1,5 +1,5 @@
-import { UserContext } from "./context";
-import { useContext } from "react";
+//import { UserContext } from "./context";
+//import { useContext } from "react";
 import CardTemplate from "./cardtemplate";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
@@ -8,7 +8,7 @@ import Container from "react-bootstrap/esm/Container";
 import img from "../public/logo.png";
 
 function Home() {
-  const user = useContext(UserContext);
+  //const user = useContext(UserContext);
   return (
     <Container>
       <Row className="justify-content-md-center">

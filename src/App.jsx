@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavigationBar from "./navbar.jsx";
@@ -8,25 +8,35 @@ import Login from "./login.jsx";
 import Deposit from "./deposit.jsx";
 import Withdraw from "./withdraw.jsx";
 import AllData from "./alldata.jsx";
-import { UserContext } from "./context";
+import { UserProvider } from "./context";
+import CurrentUser from "./currentuser.jsx";
 
 function App() {
   const ctx = {
-    users: [
+    users: [],
+    currentUser: [
       {
-        name: "mark",
-        email: "mark@mit.edu",
-        password: "dontknow",
-        balance: 100,
+        email: "",
       },
     ],
   };
+  // const [data, setData] = useState(ctx);
+  const url = "/api/account/all";
+  async function fetchAllData() {
+    var res = await fetch(url);
+    var data = await res.json();
+    console.log(data);
+    data.map((item) => ctx.users.push(item));
+    console.log("All data: ", ctx);
+  }
+  fetchAllData();
 
   return (
     <>
-      <HashRouter>
-        <NavigationBar />
-        <UserContext.Provider value={ctx}>
+      <UserProvider>
+        <HashRouter>
+          <NavigationBar />
+          <CurrentUser value={ctx} />
           <Routes>
             <Route path="/" index element={<Home />} />
             <Route path="/CreateAccount" element={<CreateAccount />} />
@@ -35,8 +45,8 @@ function App() {
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/alldata" element={<AllData />} />
           </Routes>
-        </UserContext.Provider>
-      </HashRouter>
+        </HashRouter>
+      </UserProvider>
     </>
   );
 }
